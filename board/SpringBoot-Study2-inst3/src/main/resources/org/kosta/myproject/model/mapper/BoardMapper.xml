@@ -8,56 +8,67 @@
 		post_id,title,content,member_id,regdate,hits from
 		g_board
 	</sql>
-	
-	
+
+
 	<select id="getBoardList" resultType="BoardDTO">
 		<include refid="selectBoardList"></include>
 		order by post_id desc
 	</select>
-	
-	
+
+
 	<update id="hitsUpdate">
 		update g_board set hits=hits+1 where
 		post_id=#{postId}
 	</update>
-	
-	
+
+
 	<select id="getCategoryList" resultType="CategoryDTO">
 		select * from category
 	</select>
-	
-	
-	<select id="getCategoryCount" resultType="CategoryDTO">
+
+
+
+	<select id="getCategoryCount" resultType="int">
 		select * from g_board
-		where category_id=#{categoryId}
+		where board_id=#{boardId}
+		and category_id=#{categoryId}
+
 	</select>
-	
-	
+
+
 	<resultMap type="BoardDTO" id="boardRM">
 		<result column="nickname" property="memberDTO.nickname" />
 		<result column="category_name"
 			property="categoryDTO.categoryName" />
 	</resultMap>
-	
-	
+	<resultMap type="BoardDTO" id="boardRM1">
+		<result column="nickname" property="memberDTO.nickname" />
+		<result column="board_id" property="boardTypeDTO.boardId" />
+		<result column="category_id" property="categoryDTO.categoryId" />
+		<result column="category_name"
+			property="categoryDTO.categoryName" />
+	</resultMap>
+
+
 	<select id="getBoardType"
 		resultType="org.kosta.myproject.model.domain.BoardTypeDTO">
 		select * from boardtype
 	</select>
-	
-	
+
+
 	<select id="getBoardName"
 		resultType="org.kosta.myproject.model.domain.BoardTypeDTO">
 		select board_name from boardtype where board_id=#{boardId}
 	</select>
-	
-	
+
+
 	<select id="getCatName"
 		resultType="org.kosta.myproject.model.domain.CategoryDTO">
-		select category_name from category where category_id=#{categoryId}
+		select category_name from category where
+		category_id=#{categoryId}
 	</select>
-	
-	
+
+
 	<sql id="getLists">
 		select b.post_id, b.title, m.nickname, b.regdate,b.hits
 		from g_board b, g_member m
@@ -70,25 +81,40 @@
 		<include refid="getLists"></include>
 		order by post_id desc
 	</select>
-	
-	
+
+
 	<delete id="deletePost">
 		delete from g_board where post_id = #{postId}
 	</delete>
-	
-	
-	<select id="getpostDetail" resultMap="boardRM">
+
+
+	<select id="getpostDetail" resultMap="boardRM1">
 		select b.title,
 		b.content,b.post_id,
-		m.nickname, b.regdate,b.hits, c.category_name,
+		m.nickname, b.regdate,b.hits,
+		b.category_id,
+		b.board_id, c.category_name,
 		b.filename
-		from category c, g_board
-		b, g_member m
+		from category c,
+		g_board
+		b,
+		g_member m
 		where b.member_id =
 		m.member_id
 		and
 		b.category_id=c.category_id
 		and b.post_id=#{postId}
+	</select>
+
+	<select id="getSecId" resultType="BoardTypeDTO">
+		select board_id
+		from boardtype
+		where board_id=2
+	</select>
+	<select id="getComId" resultType="BoardTypeDTO">
+		select board_id
+		from boardtype
+		where board_id=1
 	</select>
 
 </mapper>

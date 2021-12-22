@@ -22,8 +22,23 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Model model) {
 		System.out.println("SpringBoot-Study1 home");
-		model.addAttribute("list",boardMapper.getCategoryList());
+		model.addAttribute("board", boardMapper.getComId());
+		model.addAttribute("list", boardMapper.getCategoryList());
 		return "index";
+	}
+
+	@RequestMapping("/community-list")
+	public String CommunityBoards(Model model) {
+		model.addAttribute("board", boardMapper.getComId());
+		model.addAttribute("list", boardMapper.getCategoryList());
+		return "community-list";
+	}
+
+	@RequestMapping("/second-list")
+	public String secondHandBoards(Model model) {
+		model.addAttribute("board", boardMapper.getSecId());
+		model.addAttribute("list", boardMapper.getCategoryList());
+		return "second-list";
 	}
 
 }

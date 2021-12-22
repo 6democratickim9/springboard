@@ -20,7 +20,7 @@
  --%>
 	<table border="1" width="900px">
 
-		<a href="${path}/board/second-list">중고거래</a>
+		<a href="${path}/second-list">중고거래</a>
 
 
 		<table border="1" width="900px">
@@ -30,9 +30,9 @@
 
 			<c:forEach var="category" items="${list}">
 				<tr>
-					<td><a
-						href="${path}/board/list?boardId=1&categoryId=${category.categoryId}">커뮤니티
-							${category.categoryName}</a></td>
+					<td><form action=
+					"${path}/board/list/${board.boardId}/${category.categoryId}" method="get"><input type="submit" value="${category.categoryName} 커뮤니티">
+							</form></td>
 				</tr>
 			</c:forEach>
 

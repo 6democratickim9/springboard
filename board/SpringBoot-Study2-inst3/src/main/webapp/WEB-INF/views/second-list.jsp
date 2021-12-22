@@ -26,9 +26,12 @@
 
 		<c:forEach var="category" items="${list}">
 			<tr>
-				<td><a
-					href="${path}/board/list?boardId=2&categoryId=${category.categoryId}">
-						${category.categoryName}</a></td>
+				<td><form
+						action="${path}/board/list/${board.boardId}/${category.categoryId}"
+						method="get">
+						
+						<button type="submit">${category.categoryName} 커뮤니티</button>
+					</form></td>
 			</tr>
 		</c:forEach>
 	</table>

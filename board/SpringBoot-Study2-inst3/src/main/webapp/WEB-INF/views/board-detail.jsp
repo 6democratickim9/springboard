@@ -67,9 +67,10 @@ footer {
 		<form name="detailForm">
 			<!-- script에서 user_pwd에 접근하기 위한 폼 -->
 			<input type="file" value="파일">${list.filename } <input
-				type="button" value="삭제" onclick="location.href='${path}/board/delete?postId=${list.postId}';" />
+				type="button" value="삭제" onclick="location.href='${path}/board/delete/${list.postId}/${list.boardTypeDTO.boardId}/${list.categoryDTO.categoryId}';" >
+				</input>
 			<input type="button" value="수정" /> <input type="button" value="글 목록"
-				onclick="location.href='${path}/board/list?boardId=1&categoryId=${category.categoryId}';" />
+				onclick="location.href=document.referrer;" />
 		</form>
 	<div class="card mb-2 mt-5">
 
@@ -97,7 +98,7 @@ footer {
 				
 					<li id="'comment--'+${li.commentId}"
 						class="list-group-item d-flex justify-content-between">
-						<div><c:out value="${li.commentContent }"/></div>
+						<div><c:out value="${li.commentContent}"/></div>
 						<div class="d-flex">
 							<div class="text-monospace">
 								<c:out value="${li.MemberDTO.name}"/>

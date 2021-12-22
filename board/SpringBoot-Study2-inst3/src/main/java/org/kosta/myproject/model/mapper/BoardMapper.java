@@ -13,7 +13,11 @@ public interface BoardMapper {
 	List<BoardDTO> getBoardList();
 
 	int hitsUpdate(int postId);
-
+	
+	BoardTypeDTO getSecId();
+	
+	BoardTypeDTO getComId();
+	
 	MemberDTO findTestById(int memberId);
 
 	List<BoardDTO> getAllLists(int boardId, int categoryId);
@@ -29,4 +33,6 @@ public interface BoardMapper {
 	BoardTypeDTO getBoardName(int boardId);
 	
 	CategoryDTO getCatName(int categoryId);
+
+	int getCategoryCount(int boardId,int categoryId);
 }
